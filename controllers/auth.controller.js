@@ -153,7 +153,7 @@ const changePassword = async (req, res, next) => {
         const { email, oldPassword, newPassword, confirmPassword } = req.body;
 
         if (!email || !oldPassword || !newPassword || !confirmPassword) {
-            return next(BaseError.BadRequest(400, "Barcha maydonlarni to‘ldiring"));
+            return next(BaseError.BadRequest(400, "Barcha maydonlarni toldiring"));
         }
 
         if (newPassword !== confirmPassword) {
@@ -167,14 +167,14 @@ const changePassword = async (req, res, next) => {
 
         const isMatch = await bcryptjs.compare(oldPassword, user.password);
         if (!isMatch) {
-            return next(BaseError.BadRequest(401, "Eski parol noto‘g‘ri"));
+            return next(BaseError.BadRequest(401, "Eski parol notogri"));
         }
 
         const hashedPassword = await bcryptjs.hash(newPassword, 10);
         user.password = hashedPassword;
         await user.save();
 
-        res.status(200).json({ message: "Parol muvaffaqiyatli o‘zgartirildi" });
+        res.status(200).json({ message: "Parol muvaffaqiyatli ozgartirildi" });
 
     } catch (err) {
         next(BaseError.InternalServer(500, "Serverda xatolik"));
