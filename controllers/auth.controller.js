@@ -18,7 +18,7 @@ const register = async (req, res, next) => {
 
     const lastTime = new Date()
     const minutes = lastTime.getMinutes()
-    lastTime.setMinutes(minutes + 2)
+    lastTime.setMinutes(minutes + 5)
 
 
     await AuthModel.create({ username, email, password: hashedPassword, otp: randomCode, lastTime: lastTime })
@@ -33,7 +33,7 @@ const register = async (req, res, next) => {
             user.otp = "0"
             user.lastTime = 0
             await user.save()
-            console.log(`OTP cleared for ${email} after 2 minutes`)
+            console.log(`OTP cleared for ${email} after 5 minutes`)
         }
     }, 2 * 60 * 1000)
 
